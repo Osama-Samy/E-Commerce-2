@@ -16,7 +16,6 @@ import {
 } from "../../components/AnimatedCircles/AnimatedCircles";
 
 function ForgotPassword() {
-  // dark mode or light mode by localstorage :
   const { isDarkMode } = useTheme();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);

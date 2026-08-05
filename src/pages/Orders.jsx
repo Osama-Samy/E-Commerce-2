@@ -26,7 +26,7 @@ export default function Orders() {
       setOrders(res.data?.orders || []);
       setError(null);
     } catch (err) {
-      setError("حدث خطأ أثناء تحميل الطلبات");
+      setError(err.response?.data?.message || "Failed to fetch orders");
     } finally {
       setLoading(false);
     }

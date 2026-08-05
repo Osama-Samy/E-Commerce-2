@@ -8,6 +8,7 @@ import {
   FiMenu,
   FiHeart,
   FiShoppingCart,
+  FiMoreVertical,
 } from "react-icons/fi";
 import { FaRegUser } from "react-icons/fa";
 import { useAllProduct } from "../context/AllProductContext";
@@ -16,6 +17,7 @@ import { useCart } from "../context/CartContext";
 export default function Header() {
   const [openSearch, setOpenSearch] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [moreMenuOpen, setMoreMenuOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const [name, setName] = useState("");
   const { cart } = useCart();
@@ -24,7 +26,6 @@ export default function Header() {
   const navigate = useNavigate();
   const { wishlistCount } = useAllProduct();
 
-  // Dark Mode State with LocalStorage persistence
   const [darkMode, setDarkMode] = useState(() => {
     return localStorage.getItem("theme") === "dark";
   });
@@ -90,7 +91,6 @@ export default function Header() {
     return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
-  // Sync Dark Mode with DOM and LocalStorage
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add("dark");
@@ -133,7 +133,6 @@ export default function Header() {
   return (
     <header className="fixed top-2 sm:top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-7xl bg-white/95 dark:bg-[#070B1A]/95 backdrop-blur-md rounded-2xl lg:rounded-full shadow-lg dark:shadow-2xl border border-gray-200/80 dark:border-white/10 transition-all duration-300">
       <div className="flex items-center justify-between px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3 relative">
-        {/* Logo */}
         <Link to="/" className="flex items-center gap-2.5 sm:gap-3 shrink-0">
           <div className="w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 rounded-xl bg-indigo-600 flex items-center justify-center text-white text-base sm:text-lg md:text-xl shadow-md">
             <FiShoppingCart />
@@ -148,7 +147,6 @@ export default function Header() {
           </div>
         </Link>
 
-        {/* Desktop Navigation Links */}
         <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
           {links.map((link) => (
             <NavLink
@@ -169,89 +167,96 @@ export default function Header() {
           ))}
         </nav>
 
-        {/* Right Side Icons & Actions */}
         <div className="flex items-center gap-1.5 sm:gap-2.5 md:gap-3">
-          {/* Search Box */}
-          <div
-            ref={searchWrapperRef}
-            className={`flex items-center h-9 sm:h-10 md:h-11 rounded-full bg-gray-100 dark:bg-[#111827] transition-all duration-300 ease-in-out border border-gray-200 dark:border-slate-800 shrink-0 ${
-              openSearch ? "w-[160px] sm:w-[240px] md:w-[280px] px-2.5 sm:px-3" : "w-9 sm:w-10 md:w-11"
-            }`}
-          >
+          <div className="relative flex items-center">
             <button
-              type="button"
-              onClick={() => setOpenSearch((v) => !v)}
-              aria-label={openSearch ? "Close search" : "Open search"}
-              className="flex items-center justify-center cursor-pointer w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 shrink-0 text-slate-700 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+              onClick={() => setMoreMenuOpen(!moreMenuOpen)}
+              aria-label="More Options"
+              className="min-[365px]:hidden w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gray-100 dark:bg-[#111827] text-slate-700 dark:text-slate-200 border border-gray-200 dark:border-slate-800 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-[#1f2937] hover:text-indigo-600 dark:hover:text-indigo-400 transition-all shrink-0"
             >
-              <FiSearch className="text-base sm:text-lg" />
+              <FiMoreVertical className="text-base sm:text-lg" />
             </button>
 
-            <input
-              ref={searchInputRef}
-              type="text"
-              placeholder="Search..."
-              className={`bg-transparent border-0 outline-none ring-0 text-xs sm:text-sm text-slate-900 dark:text-white placeholder:text-gray-400 min-w-0 transition-opacity duration-200 ease-in-out ${
-                openSearch ? "opacity-100 w-full ml-1" : "opacity-0 w-0 pointer-events-none"
-              }`}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" && e.target.value.trim()) {
-                  navigate(`/shop?search=${encodeURIComponent(e.target.value.trim())}`);
-                  setOpenSearch(false);
-                }
-              }}
-            />
+            <div className={`absolute right-0 top-full pt-2 w-max min-[365px]:opacity-100 min-[365px]:visible min-[365px]:relative min-[365px]:top-auto min-[365px]:right-auto min-[365px]:pt-0 z-50 transition-all duration-300 ${moreMenuOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none min-[365px]:pointer-events-auto"}`}>
+              <div className="flex flex-col min-[365px]:flex-row gap-2 min-[365px]:gap-1.5 sm:gap-2.5 md:gap-3 bg-white dark:bg-[#111827] min-[365px]:bg-transparent min-[365px]:dark:bg-transparent border border-gray-200 dark:border-slate-800 min-[365px]:border-none rounded-xl min-[365px]:rounded-none shadow-lg min-[365px]:shadow-none p-2 min-[365px]:p-0">
+                <div
+                  ref={searchWrapperRef}
+                  className={`flex items-center h-9 sm:h-10 md:h-11 rounded-full bg-gray-100 dark:bg-[#111827] transition-all duration-300 ease-in-out border border-gray-200 dark:border-slate-800 shrink-0 ${
+                    openSearch ? "w-[160px] sm:w-[240px] md:w-[280px] px-2.5 sm:px-3" : "w-9 sm:w-10 md:w-11"
+                  }`}
+                >
+                  <button
+                    type="button"
+                    onClick={() => setOpenSearch((v) => !v)}
+                    aria-label={openSearch ? "Close search" : "Open search"}
+                    className="flex items-center justify-center cursor-pointer w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 shrink-0 text-slate-700 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                  >
+                    <FiSearch className="text-base sm:text-lg" />
+                  </button>
 
-            {openSearch && (
-              <button
-                type="button"
-                onClick={() => setOpenSearch(false)}
-                aria-label="Clear search"
-                className="shrink-0 text-slate-400 hover:text-red-500 transition-colors p-1"
-              >
-                <FiX className="text-sm" />
-              </button>
-            )}
+                  <input
+                    ref={searchInputRef}
+                    type="text"
+                    placeholder="Search..."
+                    className={`bg-transparent border-0 outline-none ring-0 text-xs sm:text-sm text-slate-900 dark:text-white placeholder:text-gray-400 min-w-0 transition-opacity duration-200 ease-in-out ${
+                      openSearch ? "opacity-100 w-full ml-1" : "opacity-0 w-0 pointer-events-none"
+                    }`}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && e.target.value.trim()) {
+                        navigate(`/shop?search=${encodeURIComponent(e.target.value.trim())}`);
+                        setOpenSearch(false);
+                      }
+                    }}
+                  />
+
+                  {openSearch && (
+                    <button
+                      type="button"
+                      onClick={() => setOpenSearch(false)}
+                      aria-label="Clear search"
+                      className="shrink-0 text-slate-400 hover:text-red-500 transition-colors p-1"
+                    >
+                      <FiX className="text-sm" />
+                    </button>
+                  )}
+                </div>
+                <button
+                  onClick={() => setDarkMode(!darkMode)}
+                  aria-label="Toggle Theme"
+                  className="w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 cursor-pointer rounded-full bg-gray-100 dark:bg-[#111827] text-slate-700 dark:text-slate-200 border border-gray-200 dark:border-slate-800 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-[#1f2937] hover:text-indigo-600 dark:hover:text-indigo-400 transition-all shrink-0"
+                >
+                  {darkMode ? <FiMoon className="text-base sm:text-lg" /> : <FiSun className="text-base sm:text-lg text-amber-500" />}
+                </button>
+
+                <Link
+                  to="/wishlist"
+                  aria-label="Wishlist"
+                  className="relative w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 rounded-full bg-gray-100 dark:bg-[#111827] text-slate-700 dark:text-slate-200 border border-gray-200 dark:border-slate-800 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-[#1f2937] hover:text-pink-500 dark:hover:text-pink-400 transition-all shrink-0"
+                >
+                  <FiHeart className="text-base sm:text-lg" />
+                  {wishlistCount > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-pink-500 text-white text-[10px] sm:text-xs font-bold w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center shadow-sm">
+                      {wishlistCount > 9 ? "9+" : wishlistCount}
+                    </span>
+                  )}
+                </Link>
+
+                <Link
+                  to="/cart"
+                  aria-label="Cart"
+                  className="relative w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 rounded-full bg-gray-100 dark:bg-[#111827] text-slate-700 dark:text-slate-200 border border-gray-200 dark:border-slate-800 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-[#1f2937] hover:text-indigo-600 dark:hover:text-indigo-400 transition-all shrink-0"
+                >
+                  <FiShoppingCart className="text-base sm:text-lg" />
+                  {cart.itemCount > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] sm:text-xs font-bold w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center shadow-sm">
+                      {cart.itemCount > 99 ? "99+" : cart.itemCount}
+                    </span>
+                  )}
+                </Link>
+              </div>
+            </div>
           </div>
 
-          {/* Dark Mode Toggle */}
-          <button
-            onClick={() => setDarkMode(!darkMode)}
-            aria-label="Toggle Theme"
-            className="w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 cursor-pointer rounded-full bg-gray-100 dark:bg-[#111827] text-slate-700 dark:text-slate-200 border border-gray-200 dark:border-slate-800 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-[#1f2937] hover:text-indigo-600 dark:hover:text-indigo-400 transition-all shrink-0"
-          >
-            {darkMode ? <FiMoon className="text-base sm:text-lg" /> : <FiSun className="text-base sm:text-lg text-amber-500" />}
-          </button>
-
-          {/* Wishlist */}
-          <Link
-            to="/wishlist"
-            aria-label="Wishlist"
-            className="relative w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 rounded-full bg-gray-100 dark:bg-[#111827] text-slate-700 dark:text-slate-200 border border-gray-200 dark:border-slate-800 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-[#1f2937] hover:text-pink-500 dark:hover:text-pink-400 transition-all shrink-0"
-          >
-            <FiHeart className="text-base sm:text-lg" />
-            {wishlistCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-pink-500 text-white text-[10px] sm:text-xs font-bold w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center shadow-sm">
-                {wishlistCount > 9 ? "9+" : wishlistCount}
-              </span>
-            )}
-          </Link>
-
-          {/* Cart */}
-          <Link
-            to="/cart"
-            aria-label="Cart"
-            className="relative w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 rounded-full bg-gray-100 dark:bg-[#111827] text-slate-700 dark:text-slate-200 border border-gray-200 dark:border-slate-800 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-[#1f2937] hover:text-indigo-600 dark:hover:text-indigo-400 transition-all shrink-0"
-          >
-            <FiShoppingCart className="text-base sm:text-lg" />
-            {cart.itemCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] sm:text-xs font-bold w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center shadow-sm">
-                {cart.itemCount > 99 ? "99+" : cart.itemCount}
-              </span>
-            )}
-          </Link>
-
-          {/* Profile / Login Button - Desktop & Tablet */}
           {isLogin ? (
             <button
               onClick={handleProfileClick}
@@ -269,7 +274,6 @@ export default function Header() {
             </Link>
           )}
 
-          {/* Mobile Menu Toggle Button */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle Mobile Menu"
@@ -280,7 +284,6 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile Menu Collapse Box */}
       <div
         className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out border-t border-gray-100 dark:border-slate-800/80 rounded-b-2xl bg-white/95 dark:bg-[#070B1A]/95 ${
           menuOpen ? "max-h-[500px] opacity-100 py-4 px-4 sm:px-6" : "max-h-0 opacity-0 py-0 px-4 sm:px-6 pointer-events-none"
@@ -305,7 +308,6 @@ export default function Header() {
           ))}
         </nav>
 
-        {/* Mobile Profile / Login Action */}
         <div className="mt-4 pt-4 border-t border-gray-100 dark:border-slate-800">
           {isLogin ? (
             <button

@@ -1,9 +1,7 @@
 @import "tailwindcss";
 
-/* تفعيل dark mode عبر الكلاس */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* تنسيقات أساسية */
 @layer base {
   * {
     @apply border-slate-200 dark:border-slate-800 transition-colors duration-300;
@@ -17,10 +15,6 @@
   }
 }
 
-/* ========================================
-   تحسين التمريرات - أحجام كبيرة وواضحة
-   ======================================== */
-
 ::-webkit-scrollbar {
   width: 15px !important;
 }
@@ -31,7 +25,6 @@
   }
 }
 
-/* خلفية الشريط */
 ::-webkit-scrollbar-track {
   background-color: rgb(200, 242, 249) !important;
   border-radius: 0 !important;
@@ -43,7 +36,6 @@
   background-color: rgba(30, 41, 59, 0.7) !important;
 }
 
-/* الإبهام (المؤشر) - حجم كبير */
 ::-webkit-scrollbar-thumb {
   background-color: rgb(27, 208, 227) !important;
   border-radius: 20px !important;
@@ -66,7 +58,6 @@
   background-color: rgba(38, 155, 176, 0.7) !important;
 }
 
-/* ===== الأسهم ===== */
 
 ::-webkit-scrollbar-button:single-button:vertical:decrement {
   background-color: #e2e8f0 !important;
@@ -118,7 +109,6 @@
   background-color: #476949 !important;
 }
 
-/* تأثيرات إضافية */
 input:focus {
   box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1);
 }
@@ -128,7 +118,6 @@ input:focus {
   color: #e2e8f0 !important;
 }
 
-/* Autofill fixes */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
@@ -148,8 +137,6 @@ input:-webkit-autofill:active {
   caret-color: #0f172a !important;
   background-color: #ffffff !important;
 }
-
-
 
 .cart-page {
   padding: 40px;

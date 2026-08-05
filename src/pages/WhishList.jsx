@@ -21,12 +21,10 @@ export default function Wishlist() {
   const [addingToCart, setAddingToCart] = useState({});
   const [removing, setRemoving] = useState({});
 
-  // Check if user is logged in
   function isLoggedIn() {
     const token = localStorage.getItem("userToken");
     return token && token !== "null" && token !== "undefined" && token.length > 10;
   }
-  // ============================================
   useEffect(() => {
     let mounted = true;
 
@@ -42,7 +40,6 @@ export default function Wishlist() {
       try {
         if (mounted) setLoading(true);
 
-        // Correct API endpoint: GET /wishlists/my
         const response = await api.get("/wishlists/my");
 
         if (!mounted) return;
@@ -86,16 +83,13 @@ export default function Wishlist() {
       mounted = false;
     };
   }, [])
-  // ============================================
   async function removeFromWishlist(productId) {
     if (!productId) return;
 
     setRemoving((prev) => ({ ...prev, [productId]: true }));
     try {
-      // Correct API endpoint: DELETE /wishlists/remove/{productId}
       await api.delete(`/wishlists/remove/${productId}`);
 
-      // Remove from local state immediately
       setWishlistItems((prev) =>
         prev.filter((item) => {
           const id = getProductId(item);
@@ -111,7 +105,6 @@ export default function Wishlist() {
       setRemoving((prev) => ({ ...prev, [productId]: false }));
     }
   }
-  // ============================================
   async function addToCart(productId) {
     if (!productId) return;
 
@@ -126,10 +119,7 @@ export default function Wishlist() {
       setAddingToCart((prev) => ({ ...prev, [productId]: false }));
     }
   }
-  // ============================================
-
   function getProductId(item) {
-    // API might return: item.productId (object with _id) or item.product (object) or item._id
     if (item.productId?._id) return item.productId._id;
     if (item.productId) return item.productId;
     if (item.product?._id) return item.product._id;
@@ -139,15 +129,12 @@ export default function Wishlist() {
   }
 
   function getProduct(item) {
-    // API might populate productId with full product data
     return item.productId || item.product || item;
   }
-  // ============================================
   function getDiscount(price, discountPrice) {
     if (!discountPrice || discountPrice >= price) return 0;
     return Math.round(((price - discountPrice) / price) * 100);
   }
-  // ============================================
   if (loading) {
     return (
       <div className="min-h-screen dark:bg-[#0B1120] text-white pt-28 px-4">
@@ -162,7 +149,6 @@ export default function Wishlist() {
       </div>
     );
   }
-  // ============================================
   if (error || !isLoggedIn()) {
     return (
       <div className="min-h-screen bg-[#0B1120] text-white flex items-center justify-center px-4 pt-28">
@@ -181,7 +167,6 @@ export default function Wishlist() {
       </div>
     );
   }
-  // ============================================
   if (wishlistItems.length === 0) {
     return (
       <div className="min-h-screen dark:bg-[#0B1120] text-white pt-28 px-4">
@@ -204,17 +189,14 @@ export default function Wishlist() {
       </div>
     );
   }
-  // ============================================
   return (
     <div className="min-h-screen dark:bg-[#0B1120] text-gray-100 pb-20 pt-24 sm:pt-28">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-2xl sm:text-3xl font-bold text-black dark:text-white">My Wishlist</h1>
           <span className="text-gray-400">{wishlistItems.length} items</span>
         </div>
 
-        {/* Grid */}
         <div className="grid grid-cols-1 min-[480px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
           {wishlistItems.map((item) => {
             const product = getProduct(item);
@@ -236,23 +218,19 @@ export default function Wishlist() {
                 key={productId}
                 className="dark:bg-[#1e293b] rounded-2xl overflow-hidden border border-gray-300 dark:border dark:border-gray-800 dark:hover:border-gray-700 transition-all group"
               >
-                {/* Image */}
                 <div className="relative aspect-square bg-stone-50 dark:bg-[#0B1120] p-6 overflow-hidden">
-                  {/* Category Badge */}
                   {product.category && (
                     <span className="absolute top-3 left-3 z-10 px-2 py-1 bg-indigo-500/20 text-indigo-400 text-xs font-medium rounded-md">
                       {product.category}
                     </span>
                   )}
 
-                  {/* Discount Badge */}
                   {discount > 0 && (
                     <span className="absolute top-3 right-10 z-10 px-2 py-1 bg-red-500/20 text-red-400 text-xs font-bold rounded-md">
                       -{discount}%
                     </span>
                   )}
 
-                  {/* Delete Button */}
                   <button
                     onClick={() => removeFromWishlist(productId)}
                     disabled={isRemoving}
@@ -265,7 +243,6 @@ export default function Wishlist() {
                     )}
                   </button>
 
-                  {/* Product Image */}
                   <Link to={`/product-details?id=${productId}`}>
                     <img
                       src={product.images?.[0]?.url || "/placeholder.png"}
@@ -275,7 +252,6 @@ export default function Wishlist() {
                   </Link>
                 </div>
 
-                {/* Info */}
                 <div className="p-4 space-y-3">
                   <Link to={`/product-details?id=${productId}`}>
                     <h3 className="font-medium text-black dark:text-white hover:text-indigo-400 transition-colors line-clamp-1">
@@ -283,7 +259,6 @@ export default function Wishlist() {
                     </h3>
                   </Link>
 
-                  {/* Rating */}
                   <div className="flex items-center gap-2">
                     <div className="flex gap-0.5">
                       {[1, 2, 3, 4, 5].map((star) => (
@@ -302,7 +277,6 @@ export default function Wishlist() {
                     </span>
                   </div>
 
-                  {/* Price */}
                   <div className="flex items-baseline gap-2">
                     <span className="text-lg font-bold text-indigo-400">
                       EGP {finalPrice}
@@ -314,7 +288,6 @@ export default function Wishlist() {
                     )}
                   </div>
 
-                  {/* Add to Cart Button */}
                   <button
                     onClick={() => addToCart(productId)}
                     disabled={product.stock === 0 || isAdding}

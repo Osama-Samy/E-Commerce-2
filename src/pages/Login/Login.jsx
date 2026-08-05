@@ -17,8 +17,7 @@ import {
 } from "../../components/AnimatedCircles/AnimatedCircles";
 
 function Login() {
-  // dark mode or light mode by localstorage :
-   useTheme();
+  useTheme();
   const location = useLocation();
   const isLoginPage = location.pathname === "/login";
   const navigate = useNavigate();
@@ -42,7 +41,6 @@ function Login() {
 
     try {
       if (isLogin) {
-        // sign in
         let response = await api.post("auth/login", {
           email: credentials.email,
           password: credentials.password,
@@ -84,9 +82,9 @@ function Login() {
           password: credentials.password,
           username: credentials.username,
           phone: credentials.phone,
-          timestamp: Date.now(), // لإضافة صلاحية زمنية
+          timestamp: Date.now(),
         };
-        // sign up
+
         let response = await api.post("auth/register/send-otp", {
           email: credentials.email,
           password: credentials.password,
@@ -130,7 +128,6 @@ function Login() {
     const newIsLogin = !isLogin;
     setIsLogin(newIsLogin);
 
-    // move of signin to signup
     if (!newIsLogin) {
       setCredentials({
         email: credentials.email,
@@ -139,7 +136,6 @@ function Login() {
         phone: "+201234567890",
       });
     } else {
-      // move of signup to signin
       setCredentials({
         email: credentials.email,
         password: credentials.password,
@@ -213,7 +209,6 @@ function Login() {
             className="loginMain flex justify-center items-center mx-auto w-[90%] min-[270px]:w-[80%] min-[500px]:w-[90%] min-[630px]:w-[80%] min-[700px]:w-[75%] min-[800px]:w-[80%]  min-[900px]:w-full"
           >
             <div className="w-full shadow-lg shadow-sky-200 dark:shadow-xs dark:shadow-sky-100 grid overflow-hidden rounded-2xl min-[500px]:rounded-[32px] border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl  grid-cols-1 min-[900px]:grid-cols-2">
-              {/* left part*/}
               <div className="order-1 lg:order-1 relative">
                 <AnimatePresence mode="wait" custom={isLogin}>
                   {isLogin ? (
@@ -274,7 +269,6 @@ function Login() {
                 </AnimatePresence>
               </div>
 
-              {/* right part */}
               <div className="order-2 lg:order-2 relative">
                 <AnimatePresence mode="wait" custom={isLogin}>
                   {isLogin ? (

@@ -160,10 +160,7 @@ export default function Shop() {
 
   return (
     <div className="min-h-screen bg-white py-6 dark:bg-slate-950 w-full">
-      
       <div className="w-full px-4 sm:px-8 md:px-12">
-        
-        {/* Search and Mobile Filter Toggle */}
         <div className="mb-8 flex gap-3 w-full">
           <div className="relative flex-1 w-full">
             <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-xl" />
@@ -184,7 +181,6 @@ export default function Shop() {
         </div>
 
         <div className="flex flex-col lg:flex-row gap-8 w-full">
-          
           {showMobileFilters && (
             <div 
               className="fixed inset-0 bg-black/50 z-40 lg:hidden"
@@ -197,7 +193,6 @@ export default function Shop() {
             lg:static lg:w-64 lg:p-0 lg:shadow-none lg:z-auto lg:transform-none lg:overflow-visible flex-shrink-0 dark:bg-slate-950
             ${showMobileFilters ? "translate-x-0" : "translate-x-full lg:translate-x-0"}
           `}>
-            
             <div className="flex justify-between items-center mb-6 lg:hidden">
               <h2 className="text-xl font-bold text-gray-800">Filters</h2>
               <button onClick={() => setShowMobileFilters(false)} className="p-2 text-gray-500 hover:text-gray-800 transition-colors">
@@ -268,7 +263,6 @@ export default function Shop() {
             </div>
           </div>
 
-          {/* Product Grid */}
           <div className="flex-1 w-full">
             {loading ? (
               <div className="flex justify-center items-center h-64">
@@ -395,7 +389,7 @@ export default function Shop() {
           </div>
         </div>
       </div>
-      <ToastContainer position="top-right" autoClose={2000} />
+      <ToastContainer />
     </div>
   );
 }

@@ -1,11 +1,10 @@
 import { lazy, Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HandleLottie from "./components/HandleLottie/HandleLottie";
-import { ThemeProvider } from "./context/ThemeContext"; // استيراد الـ Provider
+import { ThemeProvider } from "./context/ThemeContext";
 import { AllProductProvider } from "./context/AllProductContext";
 import Layout from "./Layout/Layout";
 
-// استيراد الصفحات
 const Login = lazy(() => import("./pages/Login/Login"));
 const ForgotPassword = lazy(
   () => import("./pages/ForgotPassword/ForgotPassword"),
@@ -29,7 +28,6 @@ const Loadable = (Component) => (props) => (
 );
 
 const router = createBrowserRouter([
-  // المسارات المنفصلة (بدون Layout الثيم)
   {
     path: "/login",
     element: Loadable(Login)(),
@@ -56,7 +54,6 @@ const router = createBrowserRouter([
     errorElement: <HandleLottie state="error" />,
   },
 
-  // المسارات التي تستخدم الـ Layout المعتمد على الثيم
   {
     element: <Layout />,
     errorElement: <HandleLottie state="error" />,
@@ -76,7 +73,6 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  // التغليف بالـ Provider هنا يضمن أن كل ما بداخل الـ Router (والـ Layout) يرى الـ Context
   return (
     <ThemeProvider>
       <AllProductProvider>

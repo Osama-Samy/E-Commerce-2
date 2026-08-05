@@ -1,7 +1,7 @@
 // src/components/AnimatedCircles/AnimatedCircles.jsx
 import { motion } from "framer-motion";
 
-// حركة الدوائر المتوهجة
+
 const circleVariants = {
   animate: (i) => ({
     y: [0, -30, 0],
@@ -17,7 +17,7 @@ const circleVariants = {
   }),
 };
 
-// حركة الدوائر النابضة
+
 const circlePulseVariants = {
   animate: (i) => ({
     scale: [1, 1.6, 1],
@@ -31,7 +31,7 @@ const circlePulseVariants = {
   }),
 };
 
-// حركة الدوائر ذات الإطارات الملونة
+
 const borderCircleVariants = {
   animate: (i) => ({
     scale: [1, 1.4, 1],
@@ -46,7 +46,7 @@ const borderCircleVariants = {
   }),
 };
 
-// مكون الدوائر المتوهجة
+
 export const AnimatedCircles = ({ count = 6, baseSize = 60 }) => {
   const circles = Array.from({ length: count }, (_, i) => i);
   const colors = ["rgb(84, 194, 195)", "rgb(0, 184, 219)", "rgb(92, 128, 255)"];
@@ -92,7 +92,7 @@ export const AnimatedCircles = ({ count = 6, baseSize = 60 }) => {
   );
 };
 
-// مكون الدوائر ذات الإطارات الملونة
+
 export const BorderCircles = ({ count = 8 }) => {
   const circles = Array.from({ length: count }, (_, i) => i);
   const colors = [
@@ -131,7 +131,7 @@ export const BorderCircles = ({ count = 8 }) => {
   );
 };
 
-// دوائر نابضة
+
 export const PulsingCircles = ({ count = 6 }) => {
   const circles = Array.from({ length: count }, (_, i) => i);
   const colors = ["rgb(84, 194, 195)", "rgb(0, 184, 219)", "rgb(92, 128, 255)"];

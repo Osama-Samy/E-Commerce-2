@@ -32,7 +32,6 @@ function CheckOut() {
 
   useTheme();
 
-  // fetch the current user's cart with items:
   const fetchItemsOfCart = async () => {
     setLoadingCart(true);
     setIsErrorCart(false);
@@ -70,7 +69,6 @@ function CheckOut() {
     setCreateOrder((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Validate all fields
   const validateForm = () => {
     const errors = [];
 
@@ -103,7 +101,6 @@ function CheckOut() {
     return errors;
   };
 
-  //Removes all items and coupon from the cart.
   const clearCart = async () => {
     try {
       await contextClearCart();
@@ -117,17 +114,15 @@ function CheckOut() {
     }
   };
 
-  //  creates an order from the current cart
   const handleOrderCart = async (e) => {
     e.preventDefault();
     setValidates(true);
-    //  Check if cart has items
+
     if (!orderItemsCart?.items?.length) {
       toast.error("Your cart is empty. Add items before placing order.");
       return;
     }
 
-    //  Validate form
     const validationErrors = validateForm();
 
     if (validationErrors.length > 0) {
@@ -150,12 +145,10 @@ function CheckOut() {
         customerNote: createOrder.customerNote,
       };
 
-      //  create order
       const response = await api.post("orders", orderData);
       if (response.data.success) {
         toast.info("Order placed successfully!");
         console.log(response.data);
-        // Instant reset of cart context & header badge
         await contextClearCart();
       }
 
@@ -181,7 +174,6 @@ function CheckOut() {
     }
   };
 
-  //  Check if a field has error
   const hasError = (fieldName) => {
     if (!validates) {
       return;
@@ -219,9 +211,7 @@ function CheckOut() {
 
           <form className="w-full" onSubmit={handleOrderCart}>
             <div className="grid grid-cols-1 min-[900px]:grid-cols-3 gap-4 min-[450px]:gap-8 min-[900px]:gap-5 min-[1200px]:gap-8 ">
-              {/* shipping & payment & notes start */}
               <div className="col-span-1 min-[900px]:col-span-2 space-y-8">
-                {/* 1. shipping address start */}
                 <div className="bg-white dark:bg-slate-800 rounded-lg min-[450px]:rounded-xl border border-gray-100 dark:border-slate-700 px-2 min-[450px]:px-8 py-6 shadow">
                   <h3 className="flex gap-0.5 items-center text-[12px]  min-[450px]:text-xl rounded-sm  min-[450px]:rounded-lg font-bold w-max bg-linear-60 from-indigo-500 to-cyan-400 bg-clip-text text-transparent dark:text-slate-200 mb-3 min-[450px]:mb-4">
                     <IoLocationOutline className="text-lg min-[450px]:text-2xl font-extrabold text-indigo-500" />
@@ -369,9 +359,7 @@ function CheckOut() {
                     </div>
                   </div>
                 </div>
-                {/* 1. shipping address end */}
 
-                {/* 2. Payment Method start */}
                 <div className="bg-white dark:bg-slate-800 rounded-lg min-[450px]:rounded-xl border border-gray-100 dark:border-slate-700 px-2 min-[450px]:px-8 py-4.5 min-[450px]:py-6 shadow">
                   <h3 className="flex gap-0.5 items-center text-[12px]  min-[450px]:text-xl font-bold w-max bg-linear-60 from-indigo-500 to-cyan-400 bg-clip-text text-transparent dark:text-slate-200 mb-3.5 min-[450px]:mb-4">
                     <MdOutlinePayment className="text-lg min-[450px]:text-2xl  font-extrabold text-indigo-500" />
@@ -391,9 +379,7 @@ function CheckOut() {
                     </div>
                   </div>
                 </div>
-                {/* 2. payment method end */}
 
-                {/* 3. order notes start */}
                 <div className="bg-white dark:bg-slate-800 rounded-lg min-[450px]:rounded-xl border border-gray-100 dark:border-slate-700 px-2 min-[450px]:px-8 py-4.5 min-[450px]:py-6 shadow">
                   <h3 className="flex gap-0.5 items-center text-[12px]  min-[450px]:text-xl font-bold w-max bg-linear-60 from-indigo-500 to-cyan-400 bg-clip-text text-transparent dark:text-slate-200 mb-3.5 min-[450px]:mb-4">
                     <RiFileTextLine className="text-lg min-[450px]:text-2xl font-extrabold text-indigo-500" />
@@ -408,18 +394,14 @@ function CheckOut() {
                     className="w-full text-[10px] min-[450px]:text-base border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 resize-none focus:outline-none focus:ring-1 focus:ring-indigo-500 px-2 min-[450px]:px-4 py-1.5 min-[450px]:py-3 text-sm placeholder:text-gray-400"
                   ></textarea>
                 </div>
-                {/* 3. order notes end */}
               </div>
-              {/* shipping & payment & notes end */}
 
-              {/* order summary start */}
               <div className="col-span-1 bg-white dark:bg-slate-800 rounded-lg min-[450px]:rounded-xl border border-gray-100 dark:border-slate-700 px-2 min-[450px]:px-8 py-4.5 min-[450px]:py-6 shadow sticky top-6 h-fit">
                 <h3 className="flex gap-0.5 items-center text-[12px]  min-[450px]:text-xl  font-bold w-max bg-linear-60 from-indigo-500 to-cyan-400 bg-clip-text text-transparent dark:text-slate-200 mb-3.5 min-[450px]:mb-4">
                   <BiSolidShoppingBags className="text-lg min-[450px]:text-2xl font-extrabold text-indigo-500" />
                   <span>Order Summary</span>
                 </h3>
 
-                {/* Loading State */}
                 {loadingCart ? (
                   <div className="w-full flex flex-col justify-center items-center gap-1 min-[450px]:gap-2 py-4 min-[450px]:py-8">
                     <LuLoaderCircle className="text-3xl min-[450px]:text-5xl text-indigo-500 animate-spin" />
@@ -538,7 +520,6 @@ function CheckOut() {
                   </>
                 )}
               </div>
-              {/* order summary end */}
             </div>
           </form>
         </div>

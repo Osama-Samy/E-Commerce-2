@@ -244,7 +244,7 @@ function VerifyOTP() {
                       </p>
                     </motion.div>
 
-                    {/*  OTP Input - الأرقام فقط */}
+
                     <motion.div
                       variants={fadeVariants}
                       initial="initial"

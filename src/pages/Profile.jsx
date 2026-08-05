@@ -43,7 +43,6 @@ export default function Profile() {
   });
 
   useEffect(() => {
-    // Simulating initial load
     setLoading(false);
   }, []);
 
@@ -70,7 +69,6 @@ export default function Profile() {
     e.preventDefault();
     setSaving(true);
 
-    // Simulate API delay
     setTimeout(() => {
       setUser((prev) => ({ ...prev, ...formData }));
       setSaving(false);
@@ -80,7 +78,6 @@ export default function Profile() {
   };
 
   const handleSaveAddress = () => {
-    // No API call, just show toast and clear fields
     toast.success("Address added successfully");
     setAddressData({
       country: "",
@@ -96,7 +93,6 @@ export default function Profile() {
       toast.error("Please enter your email address");
       return;
     }
-    // Simulate sending OTP
     setTimeout(() => {
       toast.success("OTP sent to your email");
       setPasswordStep("reset");
@@ -113,7 +109,6 @@ export default function Profile() {
       return;
     }
 
-    // Simulate password reset
     setTimeout(() => {
       toast.success("Password changed successfully");
       setIsPasswordOpen(false);
@@ -143,7 +138,6 @@ export default function Profile() {
     <div className="min-h-screen bg-slate-100 dark:bg-slate-950 pt-24 sm:pt-28 pb-16 px-4 sm:px-6 text-slate-900 dark:text-slate-100 transition-colors duration-300">
       <div className="mx-auto max-w-4xl space-y-6">
         
-        {/* Profile Header Card */}
         <div className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-lg transition-colors duration-300">
           <div className="flex flex-col gap-4">
             <div className="flex flex-col items-center gap-4 text-center">
@@ -193,7 +187,6 @@ export default function Profile() {
           </div>
         </div>
 
-        {/* Edit Profile Form */}
         {isEditing && (
           <div className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-lg transition-colors duration-300">
             <h2 className="text-xl font-semibold text-slate-900 dark:text-white">
@@ -252,7 +245,6 @@ export default function Profile() {
           </div>
         )}
 
-        {/* Addresses Section */}
         <div className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-lg transition-colors duration-300">
           <div className="flex items-center gap-3 border-b border-slate-200 dark:border-slate-800 pb-4">
             <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-violet-50 dark:bg-violet-900/20 text-violet-600 dark:text-violet-400">
@@ -324,7 +316,6 @@ export default function Profile() {
           </button>
         </div>
 
-        {/* Change Password Section */}
         <div className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-lg transition-colors duration-300">
           <div className="flex items-center gap-3">
             <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-violet-50 dark:bg-violet-900/20 text-violet-600 dark:text-violet-400">
@@ -362,7 +353,6 @@ export default function Profile() {
           Logout
         </button>
 
-        {/* Password Modal */}
         {isPasswordOpen && (
           <div 
             className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 dark:bg-black/80 p-4 backdrop-blur-sm"
