@@ -33,7 +33,7 @@ const Cart = () => {
   }
 
   return (
-    <div className="bg-gray-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen pt-20 sm:pt-24 pb-16 px-3 sm:px-6 lg:px-8 transition-colors duration-300">
+    <div className="bg-gray-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen pt-16 sm:pt-20 pb-16 px-3 sm:px-6 lg:px-8 transition-colors duration-300">
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between mb-6 sm:mb-8">
           <div>
