@@ -40,7 +40,7 @@ export default function Orders() {
     status ? status.charAt(0).toUpperCase() + status.slice(1) : "";
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-slate-900 transition-colors pt-16 sm:pt-20 pb-16">
+    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-slate-900 transition-colors pt-12 sm:pt-16 pb-16">
       <main className="flex-1 max-w-5xl mx-auto w-full px-4 sm:px-6">
         <h1 className="text-2xl sm:text-3xl font-bold text-slate-800 dark:text-slate-100 mb-6">
           My Orders

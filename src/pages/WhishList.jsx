@@ -146,7 +146,7 @@ export default function Wishlist() {
   }
   if (loading) {
     return (
-      <div className="min-h-screen dark:bg-[#0B1120] text-white pt-16 sm:pt-20 px-4">
+      <div className="min-h-screen dark:bg-[#0B1120] text-white pt-12 sm:pt-16 px-4">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-2xl font-bold mb-8">My Wishlist</h1>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -160,7 +160,7 @@ export default function Wishlist() {
   }
   if (error || !isLoggedIn()) {
     return (
-      <div className="min-h-screen bg-[#0B1120] text-white flex items-center justify-center px-4 pt-16 sm:pt-20">
+      <div className="min-h-screen bg-[#0B1120] text-white flex items-center justify-center px-4 pt-12 sm:pt-16">
         <div className="text-center">
           <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
           <h2 className="text-2xl font-bold mb-2">
@@ -178,7 +178,7 @@ export default function Wishlist() {
   }
   if (wishlistItems.length === 0) {
     return (
-      <div className="min-h-screen dark:bg-[#0B1120] text-white pt-16 sm:pt-20 px-4">
+      <div className="min-h-screen dark:bg-[#0B1120] text-white pt-12 sm:pt-16 px-4">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-2xl font-bold mb-8">My Wishlist</h1>
           <div className="text-center py-20">
@@ -199,7 +199,7 @@ export default function Wishlist() {
     );
   }
   return (
-    <div className="min-h-screen dark:bg-[#0B1120] text-gray-100 pb-20 pt-16 sm:pt-20">
+    <div className="min-h-screen dark:bg-[#0B1120] text-gray-100 pb-20 pt-12 sm:pt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-2xl sm:text-3xl font-bold text-black dark:text-white">My Wishlist</h1>
