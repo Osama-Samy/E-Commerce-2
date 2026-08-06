@@ -345,7 +345,7 @@ export default function ProductDetails() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#0B1120] text-white pt-28 px-4">
+      <div className="min-h-screen bg-[#0B1120] text-white pt-12 sm:pt-16 px-4">
         <div className="max-w-7xl mx-auto animate-pulse">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div className="bg-[#1e293b] rounded-2xl h-[500px]"></div>
@@ -363,7 +363,7 @@ export default function ProductDetails() {
 
   if (error || !product) {
     return (
-      <div className="min-h-screen bg-[#0B1120] text-white flex items-center justify-center px-4 pt-28">
+      <div className="min-h-screen bg-[#0B1120] text-white flex items-center justify-center px-4 pt-12 sm:pt-16">
         <div className="text-center">
           <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
           <h2 className="text-2xl font-bold mb-2">{error || "Product not found"}</h2>
@@ -389,7 +389,7 @@ export default function ProductDetails() {
   const lowStock = product.stock > 0 && product.stock <= 5;
 
   return (
-    <div className="min-h-screen dark:bg-[#0B1120] text-gray-100 pb-20 pt-24 sm:pt-28 md:pt-32">
+    <div className="min-h-screen dark:bg-[#0B1120] text-gray-100 pb-20 pt-12 sm:pt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
         <div className="text-xs sm:text-sm text-gray-400 flex items-center gap-1.5 sm:gap-2 flex-wrap">
           <span className="dark:hover:text-white cursor-pointer" onClick={() => navigate("/")}>
